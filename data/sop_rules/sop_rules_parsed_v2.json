@@ -1,0 +1,303 @@
+{
+  "Identity": {
+    "DeclineFlow": [
+      {
+        "step": 1,
+        "action": "Verify the identity document provided is one of the Acceptable Identity Documents"
+      },
+      {
+        "step": 2,
+        "action": "Verify the name of the applicant on the application against the name on the supporting documents and the following decision may be possible"
+      },
+      {
+        "branch": "3A",
+        "condition": "Matched",
+        "action": "If matched then proceed with the verification of the date of birth of the applicant on the application against the date of birth on the supporting documents and the following decision may be possible"
+      },
+      {
+        "branch": "3B",
+        "condition": "Not matched",
+        "action": "If not matched then follow the Supplement Identity Document process guideline to request the customer to supplement appropriate supporting documents",
+        "status": "SupplementRequired"
+      },
+      {
+        "branch": "4A",
+        "condition": "Matched",
+        "action": "If matched then update Remediation_Status of the IQV as “Completed”",
+        "status": "Completed"
+      },
+      {
+        "branch": "4B",
+        "condition": "Not matched",
+        "action": "Not matched: follow the Supplement Identity Document process guideline to request the customer to supplement appropriate supporting documents",
+        "status": "SupplementRequired"
+      }
+    ],
+    "ReferFlow": [
+      {
+        "step": 1,
+        "action": "Skip the identify document check and update Remediation_Status of the IQV as “Not Required”",
+        "status": "NotRequired"
+      }
+    ],
+    "AcceptableDocuments": [
+      {
+        "Document Type": "National ID",
+        "Acceptable Criteria": "Any valid national ID with photo of the owner"
+      },
+      {
+        "Document Type": "Passport",
+        "Acceptable Criteria": "Any passport that is within 6 months of the expiry date of the passport and with photo of the owner"
+      },
+      {
+        "Document Type": "Driving License",
+        "Acceptable Criteria": "Any valid driving license within 6 months of the expiry date of the driving license and with photo of the owner"
+      }
+    ],
+    "SupplementGuidelines": [
+      {
+        "Condition": "Name on identity document is not in English language",
+        "Action Required": "Communicate to customer requesting formal attestation of the translation of the name of the owner in English language\nAppend “Identity Translation Attestation Required” to the “Actions” of the IQV"
+      },
+      {
+        "Condition": "Name or date of birth in application not matching the information in the identity document",
+        "Action Required": "Communicate to customer requesting to supplement a valid identity supporting document\nAppend “Requested Identity Document Supplement” to the “Actions” of the IQV"
+      },
+      {
+        "Condition": "Identity document not provided with the application",
+        "Action Required": "Communicate to customer requesting to supplement a valid identity supporting document\nAppend “Requested Identity Document Supplement” to the “Actions” of the IQV"
+      }
+    ]
+  },
+  "AddressProof": {
+    "DeclineFlow": [
+      {
+        "step": 1,
+        "action": "Verify the address proof provided is one of the Acceptable Address Proof Documents"
+      },
+      {
+        "step": 2,
+        "action": "Verify the name of the applicant on the application against the name on the supporting documents and the following decision may be possible"
+      },
+      {
+        "branch": "3A",
+        "condition": "Matched",
+        "action": "If matched then proceed with the verification of the “Residential Address” of the applicant on the application against the address on the supporting documents and the following decision may be possible"
+      },
+      {
+        "branch": "3B",
+        "condition": "Not matched",
+        "action": "If not matched then follow the Supplement Address Proof Document process guideline to request the customer to supplement appropriate supporting documents",
+        "status": "SupplementRequired"
+      },
+      {
+        "branch": "4A",
+        "condition": "Matched",
+        "action": "If matched then update Remediation_Status of the IQV as “Completed”",
+        "status": "Completed"
+      },
+      {
+        "branch": "4B",
+        "condition": "Not matched",
+        "action": "Not matched: follow the Supplement Address Proof Document process guideline to request the customer to supplement appropriate supporting documents",
+        "status": "SupplementRequired"
+      }
+    ],
+    "ReferFlow": [
+      {
+        "step": 1,
+        "action": "Skip the address proof check and update Remediation_Status of the IQV as “Not Required”",
+        "status": "NotRequired"
+      }
+    ],
+    "AcceptableDocuments": [
+      {
+        "Document Type": "Utility Bill",
+        "Acceptable Criteria": "Any utility bill issued within the last 3 months"
+      },
+      {
+        "Document Type": "Government Letter",
+        "Acceptable Criteria": "Any letter from the government issued within the last 3 months"
+      }
+    ],
+    "SupplementGuidelines": [
+      {
+        "Condition": "Name on address proof document is not in English language",
+        "Action Required": "Communicate to customer requesting formal attestation of the translation of the name of the owner in English language\nAppend “Address Proof Translation Attestation Required” to the “Actions” of the IQV"
+      },
+      {
+        "Condition": "Name or Residential Address in application not matching the information in the address proof document",
+        "Action Required": "Communicate to customer requesting to supplement a valid address proof supporting document\nAppend “Requested Address Proof Document Supplement” to the “Actions” of the IQV"
+      },
+      {
+        "Condition": "Address Proof document not provided with the application",
+        "Action Required": "Communicate to customer requesting to supplement a valid address proof supporting document\nAppend “Requested Address Proof Document Supplement” to the “Actions” of the IQV"
+      }
+    ]
+  },
+  "NNS": {
+    "DeclineFlow": [
+      {
+        "step": 1,
+        "action": "Verify NNS Proceed Checklist to confirm whether to proceed with NNS process and the following decision may be possible"
+      },
+      {
+        "branch": "2A",
+        "condition": "Proceed",
+        "action": "If Proceed, follow the NNS process and the following decision may be possible"
+      },
+      {
+        "branch": "2B",
+        "condition": "Remediate first",
+        "action": "If Remediate exception before proceeding, skip the NNS process until remediation has been completed"
+      },
+      {
+        "branch": "3A",
+        "condition": "No match",
+        "action": "If Not Matched, update Remediation_Status of the IQV as “Completed”",
+        "status": "Completed"
+      },
+      {
+        "branch": "3B",
+        "condition": "Potential match",
+        "action": "If Potential Match, update Remediation_Status of the IQV as “Further investigation required from ” appended with the Country Team in the following table\r\rCountry issuing the Identity document\rCountry Team\r\rIndia\rAPAC team\r\rGermany\rEMEA team",
+        "status": "InvestigationRequired"
+      }
+    ],
+    "ReferFlow": [
+      {
+        "step": 1,
+        "action": "Verify NNS Proceed Checklist to confirm whether to proceed with NNS process and the following decision may be possible"
+      },
+      {
+        "branch": "2A",
+        "condition": "Proceed",
+        "action": "If Proceed, follow the NNS process and the following decision may be possible"
+      },
+      {
+        "branch": "2B",
+        "condition": "Remediate first",
+        "action": "If Remediate exception before proceeding, skip the NNS process until remediation has been completed"
+      },
+      {
+        "branch": "3A",
+        "condition": "No match",
+        "action": "If Not Matched, update Remediation_Status of the IQV as “Completed”",
+        "status": "Completed"
+      },
+      {
+        "branch": "3B",
+        "condition": "Potential match",
+        "action": "If Potential Match, update Remediation_Status of the IQV as “Further investigation required from ” appended with the Country Team in the following table\r\rCountry issuing the Identity document\rCountry Team\r\rIndia\rAPAC team\r\rGermany\rEMEA team",
+        "status": "InvestigationRequired"
+      }
+    ]
+  },
+  "NNS_CountryRouting": {
+    "India": "APAC",
+    "Germany": "EMEA"
+  },
+  "NNS_ProceedChecklist": [
+    {
+      "india_application": "Yes",
+      "identity_exception": "No",
+      "identity_remediation": "N/A",
+      "address_exception": "No",
+      "address_remediation": "N/A",
+      "decision": "Proceed"
+    },
+    {
+      "india_application": null,
+      "identity_exception": "No",
+      "identity_remediation": "N/A",
+      "address_exception": "Yes",
+      "address_remediation": "No",
+      "decision": "Remediate exception before proceeding"
+    },
+    {
+      "india_application": null,
+      "identity_exception": "Yes",
+      "identity_remediation": "No",
+      "address_exception": "Yes",
+      "address_remediation": "No",
+      "decision": "Same as above"
+    },
+    {
+      "india_application": null,
+      "identity_exception": "Yes",
+      "identity_remediation": "No",
+      "address_exception": "No",
+      "address_remediation": "N/A",
+      "decision": "Same as above"
+    },
+    {
+      "india_application": null,
+      "identity_exception": "Yes",
+      "identity_remediation": "No",
+      "address_exception": "Yes",
+      "address_remediation": "Yes",
+      "decision": "Same as above"
+    },
+    {
+      "india_application": null,
+      "identity_exception": "Yes",
+      "identity_remediation": "Yes",
+      "address_exception": "Yes",
+      "address_remediation": "Yes",
+      "decision": "Proceed"
+    },
+    {
+      "india_application": "No",
+      "identity_exception": "No",
+      "identity_remediation": "N/A",
+      "address_exception": "No",
+      "address_remediation": "N/A",
+      "decision": "Proceed"
+    },
+    {
+      "india_application": null,
+      "identity_exception": "No",
+      "identity_remediation": "N/A",
+      "address_exception": "Yes",
+      "address_remediation": "No",
+      "decision": "Same as above"
+    },
+    {
+      "india_application": null,
+      "identity_exception": "Yes",
+      "identity_remediation": "No",
+      "address_exception": "Yes",
+      "address_remediation": "No",
+      "decision": "Same as above"
+    },
+    {
+      "india_application": null,
+      "identity_exception": "Yes",
+      "identity_remediation": "No",
+      "address_exception": "No",
+      "address_remediation": "N/A",
+      "decision": "Same as above"
+    },
+    {
+      "india_application": null,
+      "identity_exception": "Yes",
+      "identity_remediation": "No",
+      "address_exception": "Yes",
+      "address_remediation": "Yes",
+      "decision": "Same as above"
+    },
+    {
+      "india_application": null,
+      "identity_exception": "Yes",
+      "identity_remediation": "Yes",
+      "address_exception": "Yes",
+      "address_remediation": "Yes",
+      "decision": "Same as above"
+    }
+  ],
+  "NNS_ProcessDocument": {
+    "status": "not_extracted",
+    "reason": "PDF embedded as Acrobat OLE object; requires Acrobat COM or Azure Document Intelligence for extraction",
+    "label": "NNS Process.pdf"
+  }
+}
