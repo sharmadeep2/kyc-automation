@@ -1,0 +1,83 @@
+[
+  {
+    "case_id": "KYC-2026-001",
+    "applicant_name": "Takeshi Yamamoto",
+    "applicant_dob": "1985-03-15",
+    "country": "Japan",
+    "identity_exception": true,
+    "address_exception": true,
+    "nns_exception": true,
+    "identity_doc": {
+      "document_type": "passport",
+      "full_name": "Takeshi Yamamoto",
+      "date_of_birth": "1985-03-15",
+      "country_of_issue": "Japan"
+    },
+    "address_doc": {
+      "document_type": "utility_bill",
+      "full_name": "Takeshi Yamamoto",
+      "address": "1-2-3 Shibuya, Tokyo 150-0002"
+    },
+    "supporting_doc": {
+      "name_on_document": "Takeshi Yamamoto",
+      "date_of_birth_on_document": "1985-03-15",
+      "address_on_document": "1-2-3 Shibuya, Tokyo 150-0002"
+    },
+    "nns_result": {
+      "has_potential_match": false
+    },
+    "identity_flow": "DeclineFlow",
+    "address_flow": "DeclineFlow"
+  },
+  {
+    "case_id": "KYC-2026-002",
+    "applicant_name": "Maria Schmidt",
+    "applicant_dob": "1990-07-22",
+    "country": "Germany",
+    "identity_exception": true,
+    "address_exception": false,
+    "nns_exception": true,
+    "identity_doc": {
+      "document_type": "national_id",
+      "full_name": "Maria Schmidt",
+      "date_of_birth": "1990-07-22",
+      "country_of_issue": "Germany"
+    },
+    "supporting_doc": {
+      "name_on_document": "Maria A. Schmidt",
+      "date_of_birth_on_document": "1990-07-22"
+    },
+    "nns_result": {
+      "has_potential_match": true,
+      "match_details": "Partial name match with sanctioned entity 'M. Schmidt GmbH'"
+    },
+    "identity_flow": "DeclineFlow"
+  },
+  {
+    "case_id": "KYC-2026-003",
+    "applicant_name": "John Carter",
+    "applicant_dob": "1978-11-05",
+    "country": "United States",
+    "identity_exception": true,
+    "address_exception": true,
+    "nns_exception": false,
+    "identity_doc": {
+      "document_type": "driving_license",
+      "full_name": "John Carter",
+      "date_of_birth": "1978-11-05",
+      "country_of_issue": "United States"
+    },
+    "address_doc": {
+      "document_type": "bank_statement",
+      "full_name": "John Carter",
+      "address": "456 Oak Avenue, Austin, TX 78701"
+    },
+    "supporting_doc": {
+      "name_on_document": "John Carter",
+      "date_of_birth_on_document": "1978-11-05",
+      "address_on_document": "456 Oak Avenue, Austin, TX 78701"
+    },
+    "identity_flow": "DeclineFlow",
+    "address_flow": "DeclineFlow"
+  }
+]

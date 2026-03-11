@@ -1,0 +1,189 @@
+{
+  "Identity": {
+    "DeclineFlow": [
+      {
+        "step": 1,
+        "action": "Verify ID document type is on the acceptable documents list",
+        "if_pass": 2,
+        "if_fail": "Request supplementary identity document — invoke Supplement Identity Document process"
+      },
+      {
+        "step": 2,
+        "action": "Verify applicant name on ID matches supporting document name",
+        "if_pass": "Branch3A",
+        "if_fail": "Branch3B"
+      },
+      {
+        "branch": "3A",
+        "condition": "Name matched",
+        "step": 3,
+        "action": "Verify date of birth on ID matches supporting document DOB",
+        "if_pass": "Branch4A",
+        "if_fail": "Branch4B"
+      },
+      {
+        "branch": "3B",
+        "condition": "Name NOT matched",
+        "action": "Invoke Supplement Identity Document process",
+        "status": "SupplementRequired"
+      },
+      {
+        "branch": "4A",
+        "condition": "DOB matched",
+        "step": 4,
+        "action": "Update Remediation_Status = Completed",
+        "status": "Completed"
+      },
+      {
+        "branch": "4B",
+        "condition": "DOB NOT matched",
+        "action": "Invoke Supplement Identity Document process",
+        "status": "SupplementRequired"
+      }
+    ],
+    "ReferFlow": [
+      {
+        "step": 1,
+        "action": "Identity check is not required for Refer exceptions — set Remediation_Status = Not Required",
+        "status": "NotRequired"
+      }
+    ]
+  },
+  "AddressProof": {
+    "DeclineFlow": [
+      {
+        "step": 1,
+        "action": "Verify address proof document type is on the acceptable documents list",
+        "if_pass": 2,
+        "if_fail": "Request supplementary address document — invoke Supplement Address Document process"
+      },
+      {
+        "step": 2,
+        "action": "Verify applicant name on address document matches supporting document name",
+        "if_pass": "Branch3A",
+        "if_fail": "Branch3B"
+      },
+      {
+        "branch": "3A",
+        "condition": "Name matched",
+        "step": 3,
+        "action": "Verify address on document matches applicant's declared address",
+        "if_pass": "Branch4A",
+        "if_fail": "Branch4B"
+      },
+      {
+        "branch": "3B",
+        "condition": "Name NOT matched",
+        "action": "Invoke Supplement Address Document process",
+        "status": "SupplementRequired"
+      },
+      {
+        "branch": "4A",
+        "condition": "Address matched",
+        "step": 4,
+        "action": "Update Remediation_Status = Completed",
+        "status": "Completed"
+      },
+      {
+        "branch": "4B",
+        "condition": "Address NOT matched",
+        "action": "Invoke Supplement Address Document process",
+        "status": "SupplementRequired"
+      }
+    ],
+    "ReferFlow": [
+      {
+        "step": 1,
+        "action": "Address check not required for Refer exceptions — set Remediation_Status = Not Required",
+        "status": "NotRequired"
+      }
+    ]
+  },
+  "NNS": {
+    "DeclineFlow": [
+      {
+        "step": 1,
+        "action": "Check if Identity and Address exceptions are resolved",
+        "if_pass": 2,
+        "if_fail": "Defer NNS — wait for Identity and Address resolution first"
+      },
+      {
+        "step": 2,
+        "action": "Run Negative News Screening against applicant name",
+        "if_pass": "Branch3A",
+        "if_fail": "Branch3B"
+      },
+      {
+        "branch": "3A",
+        "condition": "No potential match found",
+        "step": 3,
+        "action": "Update Remediation_Status = Completed",
+        "status": "Completed"
+      },
+      {
+        "branch": "3B",
+        "condition": "Potential match found",
+        "action": "Route to regional investigation team based on country of identity document",
+        "status": "InvestigationRequired"
+      }
+    ],
+    "ReferFlow": [
+      {
+        "step": 1,
+        "action": "Run NNS same as Decline flow",
+        "if_pass": 2,
+        "if_fail": "Defer NNS"
+      },
+      {
+        "step": 2,
+        "action": "Run Negative News Screening against applicant name",
+        "if_pass": "Branch3A",
+        "if_fail": "Branch3B"
+      },
+      {
+        "branch": "3A",
+        "condition": "No potential match",
+        "action": "Update Remediation_Status = Completed",
+        "status": "Completed"
+      },
+      {
+        "branch": "3B",
+        "condition": "Potential match found",
+        "action": "Route to regional team",
+        "status": "InvestigationRequired"
+      }
+    ]
+  },
+  "NNS_CountryRouting": {
+    "Japan": "APAC",
+    "China": "APAC",
+    "India": "APAC",
+    "Singapore": "APAC",
+    "Australia": "APAC",
+    "South Korea": "APAC",
+    "United Kingdom": "EMEA",
+    "Germany": "EMEA",
+    "France": "EMEA",
+    "United Arab Emirates": "EMEA",
+    "South Africa": "EMEA",
+    "United States": "AMERICAS",
+    "Canada": "AMERICAS",
+    "Brazil": "AMERICAS",
+    "Mexico": "AMERICAS"
+  },
+  "AcceptableDocuments": {
+    "Identity": [
+      "passport",
+      "national_id",
+      "driving_license",
+      "government_id"
+    ],
+    "AddressProof": [
+      "utility_bill",
+      "bank_statement",
+      "tax_document",
+      "government_letter",
+      "rental_agreement"
+    ]
+  }
+}
