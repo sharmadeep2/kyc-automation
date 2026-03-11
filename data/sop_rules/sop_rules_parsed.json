@@ -1,0 +1,148 @@
+{
+  "Identity": {
+    "DeclineFlow": [
+      {
+        "step": 1,
+        "action": "Verify the identity document provided is one of the Acceptable Identity Documents"
+      },
+      {
+        "step": 2,
+        "action": "Verify the name of the applicant on the application against the name on the supporting documents and the following decision may be possible"
+      },
+      {
+        "branch": "3A",
+        "condition": "Matched",
+        "action": "If matched then proceed with the verification of the date of birth of the applicant on the application against the date of birth on the supporting documents and the following decision may be possible"
+      },
+      {
+        "branch": "3B",
+        "condition": "Not matched",
+        "action": "If not matched then follow the Supplement Identity Document process guideline to request the customer to supplement appropriate supporting documents",
+        "status": "SupplementRequired"
+      },
+      {
+        "branch": "4A",
+        "condition": "Matched",
+        "action": "If matched then update Remediation_Status of the IQV as “Completed”",
+        "status": "Completed"
+      },
+      {
+        "branch": "4B",
+        "condition": "Not matched",
+        "action": "Not matched: follow the Supplement Identity Document process guideline to request the customer to supplement appropriate supporting documents",
+        "status": "SupplementRequired"
+      }
+    ],
+    "ReferFlow": [
+      {
+        "step": 1,
+        "action": "Skip the identify document check and update Remediation_Status of the IQV as “Not Required”",
+        "status": "NotRequired"
+      }
+    ]
+  },
+  "AddressProof": {
+    "DeclineFlow": [
+      {
+        "step": 1,
+        "action": "Verify the address proof provided is one of the Acceptable Address Proof Documents"
+      },
+      {
+        "step": 2,
+        "action": "Verify the name of the applicant on the application against the name on the supporting documents and the following decision may be possible"
+      },
+      {
+        "branch": "3A",
+        "condition": "Matched",
+        "action": "If matched then proceed with the verification of the “Residential Address” of the applicant on the application against the address on the supporting documents and the following decision may be possible"
+      },
+      {
+        "branch": "3B",
+        "condition": "Not matched",
+        "action": "If not matched then follow the Supplement Address Proof Document process guideline to request the customer to supplement appropriate supporting documents",
+        "status": "SupplementRequired"
+      },
+      {
+        "branch": "4A",
+        "condition": "Matched",
+        "action": "If matched then update Remediation_Status of the IQV as “Completed”",
+        "status": "Completed"
+      },
+      {
+        "branch": "4B",
+        "condition": "Not matched",
+        "action": "Not matched: follow the Supplement Address Proof Document process guideline to request the customer to supplement appropriate supporting documents",
+        "status": "SupplementRequired"
+      }
+    ],
+    "ReferFlow": [
+      {
+        "step": 1,
+        "action": "Skip the address proof check and update Remediation_Status of the IQV as “Not Required”",
+        "status": "NotRequired"
+      }
+    ]
+  },
+  "NNS": {
+    "DeclineFlow": [
+      {
+        "step": 1,
+        "action": "Verify NNS Proceed Checklist to confirm whether to proceed with NNS process and the following decision may be possible"
+      },
+      {
+        "branch": "2A",
+        "condition": "Proceed",
+        "action": "If Proceed, follow the NNS process and the following decision may be possible"
+      },
+      {
+        "branch": "2B",
+        "condition": "Remediate first",
+        "action": "If Remediate exception before proceeding, skip the NNS process until remediation has been completed"
+      },
+      {
+        "branch": "3A",
+        "condition": "No match",
+        "action": "If Not Matched, update Remediation_Status of the IQV as “Completed”",
+        "status": "Completed"
+      },
+      {
+        "branch": "3B",
+        "condition": "Potential match",
+        "action": "If Potential Match, update Remediation_Status of the IQV as “Further investigation required from ” appended with the Country Team in the following table\r\rCountry issuing the Identity document\rCountry Team\r\rIndia\rAPAC team\r\rGermany\rEMEA team",
+        "status": "InvestigationRequired"
+      }
+    ],
+    "ReferFlow": [
+      {
+        "step": 1,
+        "action": "Verify NNS Proceed Checklist to confirm whether to proceed with NNS process and the following decision may be possible"
+      },
+      {
+        "branch": "2A",
+        "condition": "Proceed",
+        "action": "If Proceed, follow the NNS process and the following decision may be possible"
+      },
+      {
+        "branch": "2B",
+        "condition": "Remediate first",
+        "action": "If Remediate exception before proceeding, skip the NNS process until remediation has been completed"
+      },
+      {
+        "branch": "3A",
+        "condition": "No match",
+        "action": "If Not Matched, update Remediation_Status of the IQV as “Completed”",
+        "status": "Completed"
+      },
+      {
+        "branch": "3B",
+        "condition": "Potential match",
+        "action": "If Potential Match, update Remediation_Status of the IQV as “Further investigation required from ” appended with the Country Team in the following table\r\rCountry issuing the Identity document\rCountry Team\r\rIndia\rAPAC team\r\rGermany\rEMEA team",
+        "status": "InvestigationRequired"
+      }
+    ]
+  },
+  "NNS_CountryRouting": {
+    "India": "APAC",
+    "Germany": "EMEA"
+  }
+}
